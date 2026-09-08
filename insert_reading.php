@@ -67,41 +67,30 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 
 
 // ==================================================
-// Required fields (Power fields calculated server-side)
+// Helper: Nullable field extractor with range guard
+// Missing, null, or out-of-range values -> stored as NULL
 // ==================================================
 
-$requiredFields = [
-    "recorded_at",
-    "ambient_temperature_c",
-    "humidity_percent",
-    "atmospheric_pressure_hpa",
-    "panel_temperature_c",
-    "bmp280_temperature_c",
-    "irradiance_w_m2",
-    "fixed_voltage_v",
-    "fixed_current_a",
-    "movable_light_lux",
-    "movable_voltage_v",
-    "movable_current_a",
-    "ldr_left",
-    "ldr_right",
-    "servo_angle_deg"
-];
-
-
-foreach ($requiredFields as $field) {
-
-    if (!array_key_exists($field, $data)) {
-
-        http_response_code(400);
-
-        echo json_encode([
-            "success" => false,
-            "message" => "Missing required field: " . $field
-        ]);
-
-        exit;
+function nullableFloat(array $data, string $key, float $min, float $max): ?float {
+    if (!array_key_exists($key, $data) || $data[$key] === null) {
+        return null;
     }
+    $val = floatval($data[$key]);
+    if ($val < $min || $val > $max) {
+        return null;
+    }
+    return $val;
+}
+
+function nullableInt(array $data, string $key, int $min, int $max): ?int {
+    if (!array_key_exists($key, $data) || $data[$key] === null) {
+        return null;
+    }
+    $val = intval($data[$key]);
+    if ($val < $min || $val > $max) {
+        return null;
+    }
+    return $val;
 }
 
 
@@ -131,127 +120,42 @@ if (
 
 
 // ==================================================
-// Numeric conversion
+// Extract all sensor fields (all optional/nullable)
+// Values out-of-range or missing are stored as NULL
 // ==================================================
 
-$ambientTemperature  = floatval($data["ambient_temperature_c"]);
-$humidity            = floatval($data["humidity_percent"]);
-$atmosphericPressure = floatval($data["atmospheric_pressure_hpa"]);
-$panelTemperature    = floatval($data["panel_temperature_c"]);
-$bmp280Temperature   = floatval($data["bmp280_temperature_c"]);
-$irradiance          = floatval($data["irradiance_w_m2"]);
-
-$fixedVoltage        = floatval($data["fixed_voltage_v"]);
-$fixedCurrent        = floatval($data["fixed_current_a"]);
-
-$movableLux          = floatval($data["movable_light_lux"]);
-$movableVoltage      = floatval($data["movable_voltage_v"]);
-$movableCurrent      = floatval($data["movable_current_a"]);
-
-$ldrLeft             = intval($data["ldr_left"]);
-$ldrRight            = intval($data["ldr_right"]);
-$servoAngle          = floatval($data["servo_angle_deg"]);
+$ambientTemperature  = nullableFloat($data, 'ambient_temperature_c',    -40,    85);
+$humidity            = nullableFloat($data, 'humidity_percent',           0,   100);
+$panelTemperature    = nullableFloat($data, 'panel_temperature_c',      -55,   125);
+$bmp280Temperature   = nullableFloat($data, 'bmp280_temperature_c',     -40,    85);
+$atmosphericPressure = nullableFloat($data, 'atmospheric_pressure_hpa', 300,  1100);
+$irradiance          = nullableFloat($data, 'irradiance_w_m2',            0,  2000);
+$fixedVoltage        = nullableFloat($data, 'fixed_voltage_v',            0,    50);
+$fixedCurrent        = nullableFloat($data, 'fixed_current_a',            0,    20);
+$movableLux          = nullableFloat($data, 'movable_light_lux',          0, 100000);
+$movableVoltage      = nullableFloat($data, 'movable_voltage_v',          0,    50);
+$movableCurrent      = nullableFloat($data, 'movable_current_a',          0,    20);
+$ldrLeft             = nullableInt($data,   'ldr_left',                   0,  4095);
+$ldrRight            = nullableInt($data,   'ldr_right',                  0,  4095);
+$servoAngle          = nullableFloat($data, 'servo_angle_deg',            0,   180);
 
 
 // ==================================================
-// Range validation
+// Power Calculation (server-side: V x A)
+// Only calculated when both V and A are available
 // ==================================================
 
-if ($ambientTemperature < -40 || $ambientTemperature > 85) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "ambient_temperature_c must be between -40 and 85"]);
-    exit;
-}
+$fixedPower   = ($fixedVoltage !== null && $fixedCurrent !== null)
+    ? round($fixedVoltage * $fixedCurrent, 4)
+    : null;
 
-if ($humidity < 0 || $humidity > 100) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "humidity_percent must be between 0 and 100"]);
-    exit;
-}
-
-if ($atmosphericPressure < 300 || $atmosphericPressure > 1100) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "atmospheric_pressure_hpa must be between 300 and 1100"]);
-    exit;
-}
-
-if ($panelTemperature < -55 || $panelTemperature > 125) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "panel_temperature_c must be between -55 and 125"]);
-    exit;
-}
-
-if ($bmp280Temperature < -40 || $bmp280Temperature > 85) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "bmp280_temperature_c must be between -40 and 85"]);
-    exit;
-}
-
-if ($irradiance < 0 || $irradiance > 2000) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "irradiance_w_m2 must be between 0 and 2000"]);
-    exit;
-}
-
-if ($fixedVoltage < 0 || $fixedVoltage > 50) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "fixed_voltage_v must be between 0 and 50"]);
-    exit;
-}
-
-if ($fixedCurrent < 0 || $fixedCurrent > 20) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "fixed_current_a must be between 0 and 20"]);
-    exit;
-}
-
-if ($movableLux < 0 || $movableLux > 100000) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "movable_light_lux must be between 0 and 100000"]);
-    exit;
-}
-
-if ($movableVoltage < 0 || $movableVoltage > 50) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "movable_voltage_v must be between 0 and 50"]);
-    exit;
-}
-
-if ($movableCurrent < 0 || $movableCurrent > 20) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "movable_current_a must be between 0 and 20"]);
-    exit;
-}
-
-if ($ldrLeft < 0 || $ldrLeft > 4095) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "ldr_left must be between 0 and 4095"]);
-    exit;
-}
-
-if ($ldrRight < 0 || $ldrRight > 4095) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "ldr_right must be between 0 and 4095"]);
-    exit;
-}
-
-if ($servoAngle < 0 || $servoAngle > 180) {
-    http_response_code(400);
-    echo json_encode(["success" => false, "message" => "servo_angle_deg must be between 0 and 180"]);
-    exit;
-}
+$movablePower = ($movableVoltage !== null && $movableCurrent !== null)
+    ? round($movableVoltage * $movableCurrent, 4)
+    : null;
 
 
 // ==================================================
-// Power Calculation (Calculated accurately on server)
-// ==================================================
-
-$fixedPower   = round($fixedVoltage * $fixedCurrent, 4);
-$movablePower = round($movableVoltage * $movableCurrent, 4);
-
-
-// ==================================================
-// Insert into Database (All 17 fields)
+// Insert into Database (all sensor columns, NULLs allowed)
 // ==================================================
 
 $sql = "
@@ -259,9 +163,9 @@ INSERT INTO sensor_readings (
     recorded_at,
     ambient_temperature_c,
     humidity_percent,
-    atmospheric_pressure_hpa,
     panel_temperature_c,
     bmp280_temperature_c,
+    atmospheric_pressure_hpa,
     irradiance_w_m2,
     fixed_voltage_v,
     fixed_current_a,
@@ -292,9 +196,9 @@ $stmt->bind_param(
     $recordedAt,
     $ambientTemperature,
     $humidity,
-    $atmosphericPressure,
     $panelTemperature,
     $bmp280Temperature,
+    $atmosphericPressure,
     $irradiance,
     $fixedVoltage,
     $fixedCurrent,
@@ -309,17 +213,22 @@ $stmt->bind_param(
 );
 
 if ($stmt->execute()) {
+
     http_response_code(201);
+
     echo json_encode([
-        "success" => true,
-        "message" => "Sensor reading inserted successfully",
-        "reading_id" => $stmt->insert_id,
-        "recorded_at" => $recordedAt,
-        "fixed_power_w" => $fixedPower,
+        "success"         => true,
+        "message"         => "Sensor reading inserted successfully",
+        "reading_id"      => $stmt->insert_id,
+        "recorded_at"     => $recordedAt,
+        "fixed_power_w"   => $fixedPower,
         "movable_power_w" => $movablePower
     ]);
+
 } else {
+
     http_response_code(500);
+
     echo json_encode([
         "success" => false,
         "message" => "Database insert failed: " . $stmt->error
@@ -330,3 +239,4 @@ $stmt->close();
 $conn->close();
 
 ?>
+
