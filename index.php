@@ -317,8 +317,8 @@
           <!-- Fixed Panel Card -->
           <div class="card">
             <div class="card-header">
-              <span class="card-title" style="color: var(--sky-blue);">Fixed Panel Electrical</span>
-              <span class="sensor-source-tag">INA219 Fixed</span>
+              <span class="card-title" style="color: var(--sky-blue);">Fixed Panel</span>
+              <span class="sensor-source-tag">INA219 — Fixed Panel</span>
             </div>
             <div class="grid-3" style="margin-bottom: 0;">
               <div>
@@ -339,8 +339,8 @@
           <!-- Movable Panel Card -->
           <div class="card">
             <div class="card-header">
-              <span class="card-title" style="color: var(--solar-amber);">Movable Panel Electrical</span>
-              <span class="sensor-source-tag">INA219 Movable</span>
+              <span class="card-title" style="color: var(--solar-amber);">Movable Panel</span>
+              <span class="sensor-source-tag">INA219 — Movable Panel</span>
             </div>
             <div class="grid-3" style="margin-bottom: 0;">
               <div>
@@ -413,8 +413,8 @@
                   <tr>
                     <th>Date</th>
                     <th>Time</th>
-                    <th>Fixed W</th>
-                    <th>Movable W</th>
+                    <th>Fixed Panel W</th>
+                    <th>Movable Panel W</th>
                     <th>Temp</th>
                     <th>Humidity</th>
                     <th>Irradiance</th>
@@ -530,8 +530,8 @@
           <!-- Fixed Panel -->
           <div class="card">
             <div class="card-header">
-              <span class="card-title" style="color: var(--sky-blue);">Fixed Panel (Stationary)</span>
-              <span class="sensor-source-tag">Fixed INA219</span>
+              <span class="card-title" style="color: var(--sky-blue);">Fixed Panel</span>
+              <span class="sensor-source-tag">INA219 — Fixed Panel</span>
             </div>
             <div class="grid-3">
               <div>
@@ -555,8 +555,8 @@
           <!-- Movable Panel -->
           <div class="card">
             <div class="card-header">
-              <span class="card-title" style="color: var(--solar-amber);">Movable Panel (Sun-Tracking)</span>
-              <span class="sensor-source-tag">Movable INA219</span>
+              <span class="card-title" style="color: var(--solar-amber);">Movable Panel</span>
+              <span class="sensor-source-tag">INA219 — Movable Panel</span>
             </div>
             <div class="grid-3">
               <div>
@@ -689,17 +689,17 @@
 
         <div class="grid-2">
           <div class="card chart-card">
-            <div class="card-header"><span class="card-title">1. Fixed Power vs Time</span><span class="sensor-source-tag">Watts</span></div>
+            <div class="card-header"><span class="card-title">1. Fixed Panel Power vs Time</span><span class="sensor-source-tag">Watts</span></div>
             <div class="chart-container"><canvas id="chart-fixed-power"></canvas></div>
           </div>
 
           <div class="card chart-card">
-            <div class="card-header"><span class="card-title">2. Movable Power vs Time</span><span class="sensor-source-tag">Watts</span></div>
+            <div class="card-header"><span class="card-title">2. Movable Panel Power vs Time</span><span class="sensor-source-tag">Watts</span></div>
             <div class="chart-container"><canvas id="chart-movable-power"></canvas></div>
           </div>
 
           <div class="card chart-card" style="grid-column: 1 / -1;">
-            <div class="card-header"><span class="card-title">3. Fixed vs Movable Power Comparison</span><span class="sensor-source-tag">Comparative (W)</span></div>
+            <div class="card-header"><span class="card-title">3. Fixed Panel vs Movable Panel — Power Comparison</span><span class="sensor-source-tag">Comparative (W)</span></div>
             <div class="chart-container" style="height: 300px;"><canvas id="chart-power-comp"></canvas></div>
           </div>
 
@@ -739,22 +739,22 @@
           </div>
 
           <div class="card chart-card">
-            <div class="card-header"><span class="card-title">11. Fixed Voltage vs Time</span><span class="sensor-source-tag">Volts</span></div>
+            <div class="card-header"><span class="card-title">11. Fixed Panel Voltage vs Time</span><span class="sensor-source-tag">Volts</span></div>
             <div class="chart-container"><canvas id="chart-fixed-voltage"></canvas></div>
           </div>
 
           <div class="card chart-card">
-            <div class="card-header"><span class="card-title">12. Movable Voltage vs Time</span><span class="sensor-source-tag">Volts</span></div>
+            <div class="card-header"><span class="card-title">12. Movable Panel Voltage vs Time</span><span class="sensor-source-tag">Volts</span></div>
             <div class="chart-container"><canvas id="chart-movable-voltage"></canvas></div>
           </div>
 
           <div class="card chart-card">
-            <div class="card-header"><span class="card-title">13. Fixed Current vs Time</span><span class="sensor-source-tag">Amperes</span></div>
+            <div class="card-header"><span class="card-title">13. Fixed Panel Current vs Time</span><span class="sensor-source-tag">Amperes</span></div>
             <div class="chart-container"><canvas id="chart-fixed-current"></canvas></div>
           </div>
 
           <div class="card chart-card">
-            <div class="card-header"><span class="card-title">14. Movable Current vs Time</span><span class="sensor-source-tag">Amperes</span></div>
+            <div class="card-header"><span class="card-title">14. Movable Panel Current vs Time</span><span class="sensor-source-tag">Amperes</span></div>
             <div class="chart-container"><canvas id="chart-movable-current"></canvas></div>
           </div>
 
@@ -795,12 +795,12 @@
                 <th>Pressure (hPa)</th>
                 <th>Irradiance (W/mÂ²)</th>
                 <th>Light (lux)</th>
-                <th>Fixed V</th>
-                <th>Fixed A</th>
-                <th>Fixed W</th>
-                <th>Movable V</th>
-                <th>Movable A</th>
-                <th>Movable W</th>
+                <th>Fixed Panel V</th>
+                <th>Fixed Panel A</th>
+                <th>Fixed Panel W</th>
+                <th>Movable Panel V</th>
+                <th>Movable Panel A</th>
+                <th>Movable Panel W</th>
                 <th>LDR Left</th>
                 <th>LDR Right</th>
                 <th>Servo Angle</th>
