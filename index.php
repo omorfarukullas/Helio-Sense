@@ -788,22 +788,22 @@
               <tr>
                 <th>ID</th>
                 <th>Recorded At</th>
-                <th>Ambient (&deg;C)</th>
+                <th>Ambient Temperature (&deg;C)</th>
                 <th>Humidity (%)</th>
-                <th>Panel (&deg;C)</th>
-                <th>BMP280 (&deg;C)</th>
+                <th>Panel Temperature (&deg;C)</th>
+                <th>BMP280 Temperature (&deg;C)</th>
                 <th>Pressure (hPa)</th>
-                <th>Irradiance (W/m&sup2;)</th>
+                <th>Solar Irradiance (W/m&sup2;)</th>
                 <th>Light (lux)</th>
-                <th>Fixed Panel V</th>
-                <th>Fixed Panel A</th>
-                <th>Fixed Panel W</th>
-                <th>Movable Panel V</th>
-                <th>Movable Panel A</th>
-                <th>Movable Panel W</th>
-                <th>LDR Left</th>
-                <th>LDR Right</th>
-                <th>Servo Angle</th>
+                <th>Fixed Panel Voltage V</th>
+                <th>Fixed Panel Current A</th>
+                <th>Fixed Panel Power W</th>
+                <th>Movable Panel Voltage V</th>
+                <th>Movable Panel Current A</th>
+                <th>Movable Panel Power W</th>
+                <th>LDR Left (lux)</th>
+                <th>LDR Right (lux)</th>
+                <th>Servo Angle (Â°)</th>
               </tr>
             </thead>
             <tbody id="history-tbody">
