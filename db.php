@@ -1,6 +1,7 @@
 <?php
 error_reporting(0);
 ini_set('display_errors', 0);
+date_default_timezone_set('Asia/Dhaka');
 
 define('LIVE_THRESHOLD_SECONDS', 10);
 define('POLL_INTERVAL_MS', 10000);
