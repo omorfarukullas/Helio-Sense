@@ -201,6 +201,9 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  min-width: 0;
+  max-width: calc(100vw - 260px);
+  width: calc(100% - 260px);
 }
 
 /* Top App Header */
@@ -338,11 +341,17 @@ body {
 .content-area {
   padding: 24px 28px;
   flex: 1;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
 }
 
 .tab-pane {
   display: none;
   animation: fadeIn 0.3s ease;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
 }
 
 .tab-pane.active {
@@ -774,10 +783,33 @@ body {
 
 /* History Table */
 .table-wrapper {
+  width: 100%;
+  max-width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-color);
   background: var(--bg-card);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) var(--bg-secondary);
+}
+
+.table-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-full);
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-full);
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--solar-amber);
 }
 
 .data-table {
@@ -785,6 +817,10 @@ body {
   border-collapse: collapse;
   font-size: 13px;
   text-align: left;
+}
+
+#tab-history .data-table {
+  min-width: 1600px;
 }
 
 .data-table th {
@@ -908,6 +944,8 @@ body {
   
   .main-wrapper {
     margin-left: 0;
+    max-width: 100vw;
+    width: 100%;
   }
   
   .mobile-menu-btn {
