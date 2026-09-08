@@ -69,7 +69,6 @@ body {
   color: var(--text-primary);
   line-height: 1.5;
   min-height: 100vh;
-  overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -394,7 +393,6 @@ body {
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
   position: relative;
-  overflow: hidden;
 }
 
 .card:hover {
@@ -783,6 +781,7 @@ body {
 
 /* History Table */
 .table-wrapper {
+  display: block;
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
@@ -819,7 +818,13 @@ body {
   text-align: left;
 }
 
+#tab-history .table-wrapper {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 #tab-history .data-table {
+  width: max-content;
   min-width: 1600px;
 }
 
@@ -861,6 +866,12 @@ body {
   padding: 14px 20px;
   border-top: 1px solid var(--border-color);
   background: var(--bg-secondary);
+}
+
+#tab-history .pagination-bar {
+  border: 1px solid var(--border-color);
+  border-top: none;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 
 .page-btn {

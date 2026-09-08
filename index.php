@@ -788,12 +788,12 @@
               <tr>
                 <th>ID</th>
                 <th>Recorded At</th>
-                <th>Ambient (Â°C)</th>
+                <th>Ambient (&deg;C)</th>
                 <th>Humidity (%)</th>
-                <th>Panel (Â°C)</th>
-                <th>BMP280 (Â°C)</th>
+                <th>Panel (&deg;C)</th>
+                <th>BMP280 (&deg;C)</th>
                 <th>Pressure (hPa)</th>
-                <th>Irradiance (W/mÂ²)</th>
+                <th>Irradiance (W/m&sup2;)</th>
                 <th>Light (lux)</th>
                 <th>Fixed Panel V</th>
                 <th>Fixed Panel A</th>
@@ -810,13 +810,13 @@
               <tr><td colspan="18" style="text-align: center; padding: 30px;">Loading historical sensor records...</td></tr>
             </tbody>
           </table>
+        </div>
 
-          <div class="pagination-bar">
-            <span id="pagination-info" style="font-size: 12px; color: var(--text-secondary);">Loading pagination...</span>
-            <div style="display: flex; gap: 8px;">
-              <button class="page-btn" id="btn-prev-page">&larr; Previous</button>
-              <button class="page-btn" id="btn-next-page">Next &rarr;</button>
-            </div>
+        <div class="pagination-bar">
+          <span id="pagination-info" style="font-size: 12px; color: var(--text-secondary);">Loading pagination...</span>
+          <div style="display: flex; gap: 8px;">
+            <button class="page-btn" id="btn-prev-page">&larr; Previous</button>
+            <button class="page-btn" id="btn-next-page">Next &rarr;</button>
           </div>
         </div>
       </section>
