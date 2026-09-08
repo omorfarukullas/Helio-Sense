@@ -5,8 +5,8 @@
 
 const HelioSense = (function() {
   // Configuration
-  const POLL_INTERVAL = 10000; // 10 seconds live poll
-  const LIVE_THRESHOLD = 10;   // 10 seconds live threshold
+  const POLL_INTERVAL = 30000; // 30 second dashboard refresh (ESP32 sends every 3 min)
+  const LIVE_THRESHOLD = 200;  // 3 min + 20s buffer
   
   // State
   let state = {

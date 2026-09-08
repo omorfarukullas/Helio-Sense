@@ -3,8 +3,8 @@ error_reporting(0);
 ini_set('display_errors', 0);
 date_default_timezone_set('Asia/Dhaka');
 
-define('LIVE_THRESHOLD_SECONDS', 10);
-define('POLL_INTERVAL_MS', 10000);
+define('LIVE_THRESHOLD_SECONDS', 200);  // 3 min + 20s buffer
+define('POLL_INTERVAL_MS', 30000);      // 30 second dashboard refresh
 define('DEFAULT_PAGE_SIZE', 25);
 define('MAX_CHART_POINTS', 300);
 
