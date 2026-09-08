@@ -803,7 +803,7 @@
                 <th>Movable Panel Power W</th>
                 <th>LDR Left (lux)</th>
                 <th>LDR Right (lux)</th>
-                <th>Servo Angle (Â°)</th>
+                <th>Servo Angle (&deg;)</th>
               </tr>
             </thead>
             <tbody id="history-tbody">
