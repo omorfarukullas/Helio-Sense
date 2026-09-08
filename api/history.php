@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../config/db.php";
+require_once __DIR__ . "/../db.php";
 
 $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
 $perPage = isset($_GET['per_page']) ? max(5, min(200, (int)$_GET['per_page'])) : DEFAULT_PAGE_SIZE;

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../config/db.php";
+require_once __DIR__ . "/../db.php";
 
 // Fetch MySQL current time and total readings count
 $timeQuery = $conn->query("SELECT NOW() as current_db_time, COUNT(*) as total_count FROM sensor_readings");

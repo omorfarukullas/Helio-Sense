@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../config/db.php";
+require_once __DIR__ . "/../db.php";
 
 $range = isset($_GET['range']) ? trim($_GET['range']) : '1h';
 $startDate = isset($_GET['start_date']) ? trim($_GET['start_date']) : '';
