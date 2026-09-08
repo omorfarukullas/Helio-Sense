@@ -18,6 +18,9 @@ const HelioSense = (function() {
     currentRange: '1h',
     customStart: '',
     customEnd: '',
+    historyRange: 'all',
+    historyCustomStart: '',
+    historyCustomEnd: '',
     historyPage: 1,
     historyPerPage: 25,
     historySort: 'desc',
@@ -267,7 +270,7 @@ const HelioSense = (function() {
   // History Page Loader
   async function loadHistory(page = 1) {
     state.historyPage = page;
-    const url = `api/history.php?page=${page}&per_page=${state.historyPerPage}&sort=${state.historySort}&range=${state.currentRange}&start_date=${state.customStart}&end_date=${state.customEnd}&search=${encodeURIComponent(state.historySearch)}`;
+    const url = `api/history.php?page=${page}&per_page=${state.historyPerPage}&sort=${state.historySort}&range=${state.historyRange}&start_date=${state.historyCustomStart}&end_date=${state.historyCustomEnd}&search=${encodeURIComponent(state.historySearch)}`;
     
     try {
       const res = await fetch(url);
@@ -683,6 +686,30 @@ const HelioSense = (function() {
     if (sortSelect) {
       sortSelect.addEventListener('change', (e) => {
         state.historySort = e.target.value;
+        loadHistory(1);
+      });
+    }
+
+    // History Range Selector (independent from charts/stats)
+    const historyRangeSelect = document.getElementById('history-range-select');
+    if (historyRangeSelect) {
+      historyRangeSelect.addEventListener('change', (e) => {
+        state.historyRange = e.target.value;
+        const customBox = document.getElementById('history-custom-range-box');
+        if (customBox) customBox.style.display = e.target.value === 'custom' ? 'flex' : 'none';
+        if (e.target.value !== 'custom') loadHistory(1);
+      });
+    }
+
+    // History Custom Date Apply
+    const historyApplyBtn = document.getElementById('btn-apply-history-range');
+    if (historyApplyBtn) {
+      historyApplyBtn.addEventListener('click', () => {
+        const start = document.getElementById('history-start-date').value;
+        const end = document.getElementById('history-end-date').value;
+        state.historyRange = 'custom';
+        state.historyCustomStart = start;
+        state.historyCustomEnd = end;
         loadHistory(1);
       });
     }

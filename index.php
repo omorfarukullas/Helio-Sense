@@ -774,6 +774,21 @@
               <option value="desc">Newest First</option>
               <option value="asc">Oldest First</option>
             </select>
+            <select class="input-date" id="history-range-select">
+              <option value="all" selected>All Records</option>
+              <option value="7d">Last 7 Days</option>
+              <option value="24h">Last 24 Hours</option>
+              <option value="12h">Last 12 Hours</option>
+              <option value="6h">Last 6 Hours</option>
+              <option value="1h">Last 1 Hour</option>
+              <option value="custom">Custom Date Range</option>
+            </select>
+            <div id="history-custom-range-box" style="display:none; gap:8px; align-items:center; flex-wrap:wrap;" class="d-flex">
+              <input type="date" class="input-date" id="history-start-date" style="width:155px;">
+              <span style="color:var(--text-secondary); font-size:12px;">to</span>
+              <input type="date" class="input-date" id="history-end-date" style="width:155px;">
+              <button class="btn-primary" id="btn-apply-history-range" style="padding:6px 14px; font-size:12px;">Apply</button>
+            </div>
           </div>
 
           <button class="btn-primary" id="btn-export-csv">
