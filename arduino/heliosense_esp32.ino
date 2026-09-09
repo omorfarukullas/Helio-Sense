@@ -1,3 +1,22 @@
+/*
+================================================================================
+  HELIOSENSE - ESP32 DUAL SOLAR MONITORING & SOLAR TRACKER FIRMWARE (BACKUP)
+================================================================================
+  Description:
+    Arduino ESP32 firmware for the HelioSense IoT solar tracking and dual-panel
+    monitoring station. Measures environment data, fixed vs movable solar panel
+    electrical parameters (voltage, current, power via dual INA219s), light
+    intensity (BH1750), pressure & temperature (BMP280), humidity & temperature
+    (DHT11), dual LDR solar tracking via servo, and uploads reading payloads
+    over WiFi to the HelioSense PHP REST API every 3 minutes.
+
+  Note:
+    This entire code is commented out for backup and future reference.
+    To use: uncomment this file or copy the sketch contents into Arduino IDE.
+================================================================================
+*/
+
+/*
 #include <Wire.h>
 #include <Adafruit_INA219.h>
 #include <Adafruit_BMP280.h>
@@ -929,3 +948,5 @@ void sendToServer() {
 
   Serial.println("======================================");
 }
+*/
+

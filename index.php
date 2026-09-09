@@ -36,7 +36,7 @@
         </svg>
       </div>
       <div class="brand-info">
-        <h1>HELIO SENSE</h1>
+        <h1>HelioSense</h1>
         <p>Solar IoT Monitoring</p>
       </div>
     </div>
@@ -94,7 +94,7 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
         <div class="header-title-box">
-          <h2>HELIO SENSE</h2>
+          <h2>HelioSense</h2>
           <p>Real-Time Solar Panel Performance Monitoring</p>
         </div>
       </div>
