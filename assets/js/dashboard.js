@@ -330,7 +330,7 @@ const HelioSense = (function() {
 
   // Export CSV
   function exportCSV() {
-    const url = `api/history.php?format=csv&sort=${state.historySort}&range=${state.currentRange}&start_date=${state.customStart}&end_date=${state.customEnd}&search=${encodeURIComponent(state.historySearch)}`;
+    const url = `api/history.php?format=csv&sort=${state.historySort}&range=${state.historyRange}&start_date=${state.historyCustomStart}&end_date=${state.historyCustomEnd}&search=${encodeURIComponent(state.historySearch)}`;
     window.location.href = url;
   }
 
@@ -617,13 +617,35 @@ const HelioSense = (function() {
     const themeBtn = document.getElementById('btn-theme-toggle');
     if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
 
-    // Refresh button
+    // Top Header Refresh button
     const refreshBtn = document.getElementById('btn-manual-refresh');
     if (refreshBtn) {
       refreshBtn.addEventListener('click', () => {
+        const icon = refreshBtn.querySelector('svg');
+        if (icon) {
+          icon.style.transition = 'transform 0.5s ease';
+          icon.style.transform = 'rotate(360deg)';
+          setTimeout(() => { icon.style.transform = 'none'; }, 500);
+        }
         fetchLatest();
         loadStats();
         loadCharts();
+        loadHistory(state.historyPage || 1);
+        loadSystemStatus();
+      });
+    }
+
+    // Data History dedicated Refresh button
+    const historyRefreshBtn = document.getElementById('btn-refresh-history');
+    if (historyRefreshBtn) {
+      historyRefreshBtn.addEventListener('click', () => {
+        const icon = historyRefreshBtn.querySelector('svg');
+        if (icon) {
+          icon.style.transition = 'transform 0.5s ease';
+          icon.style.transform = 'rotate(360deg)';
+          setTimeout(() => { icon.style.transform = 'none'; }, 500);
+        }
+        loadHistory(state.historyPage || 1);
       });
     }
 
