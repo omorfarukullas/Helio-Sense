@@ -635,19 +635,7 @@ const HelioSense = (function() {
       });
     }
 
-    // Data History dedicated Refresh button
-    const historyRefreshBtn = document.getElementById('btn-refresh-history');
-    if (historyRefreshBtn) {
-      historyRefreshBtn.addEventListener('click', () => {
-        const icon = historyRefreshBtn.querySelector('svg');
-        if (icon) {
-          icon.style.transition = 'transform 0.5s ease';
-          icon.style.transform = 'rotate(360deg)';
-          setTimeout(() => { icon.style.transform = 'none'; }, 500);
-        }
-        loadHistory(state.historyPage || 1);
-      });
-    }
+
 
     // Range selector buttons
     document.querySelectorAll('.btn-range').forEach(btn => {
