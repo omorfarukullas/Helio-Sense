@@ -166,16 +166,16 @@ const HelioSense = (function() {
     setVal('env-lux', formatVal(d.movable_light_lux, 1, 'lux'));
 
     // Fixed Panel
-    setVal('fixed-voltage', formatVal(d.fixed_voltage_v, 3, 'V'));
-    setVal('fixed-current', formatVal(d.fixed_current_a, 4, 'A'));
-    setVal('fixed-power', formatVal(d.fixed_power_w, 3, 'W'));
+    setVal('fixed-voltage',  formatVal(d.fixed_voltage_v,  4, 'V'));
+    setVal('fixed-current',  formatVal(d.fixed_current_a,  4, 'A'));
+    setVal('fixed-power',    formatVal(d.fixed_power_w,    4, 'W'));
 
     // Movable Panel
-    setVal('movable-voltage', formatVal(d.movable_voltage_v, 3, 'V'));
-    setVal('movable-current', formatVal(d.movable_current_a, 4, 'A'));
-    setVal('movable-power', formatVal(d.movable_power_w, 3, 'W'));
-    setVal('movable-lux', formatVal(d.movable_light_lux, 1, 'lux'));
-    setVal('movable-irradiance', formatVal(d.irradiance_w_m2, 2, 'W/m²'));
+    setVal('movable-voltage',    formatVal(d.movable_voltage_v,  4, 'V'));
+    setVal('movable-current',    formatVal(d.movable_current_a,  4, 'A'));
+    setVal('movable-power',      formatVal(d.movable_power_w,    4, 'W'));
+    setVal('movable-lux',        formatVal(d.movable_light_lux,  1, 'lux'));
+    setVal('movable-irradiance', formatVal(d.irradiance_w_m2,    2, 'W/m²'));
 
     // Tracking
     setVal('track-ldr-left', formatVal(d.ldr_left, null));
@@ -213,9 +213,9 @@ const HelioSense = (function() {
     }
 
     // Power Comparison & Advantage
-    setVal('comp-fixed-power', formatVal(d.fixed_power_w, 3, 'W'));
-    setVal('comp-movable-power', formatVal(d.movable_power_w, 3, 'W'));
-    setVal('comp-power-diff', formatVal(d.power_diff_w, 3, 'W'));
+    setVal('comp-fixed-power',   formatVal(d.fixed_power_w,   4, 'W'));
+    setVal('comp-movable-power', formatVal(d.movable_power_w, 4, 'W'));
+    setVal('comp-power-diff',    formatVal(d.power_diff_w,    4, 'W'));
 
     const advPill = document.getElementById('comp-advantage-pill');
     if (advPill) {
@@ -257,12 +257,12 @@ const HelioSense = (function() {
       <tr>
         <td><strong>${r.date}</strong></td>
         <td>${r.time}</td>
-        <td>${formatRawVal(r.fixed_power_w, 3)} W</td>
-        <td style="color:var(--solar-amber);font-weight:700;">${formatRawVal(r.movable_power_w, 3)} W</td>
+        <td>${formatRawVal(r.fixed_power_w,   4)} W</td>
+        <td style="color:var(--solar-amber);font-weight:700;">${formatRawVal(r.movable_power_w, 4)} W</td>
         <td>${formatRawVal(r.ambient_temperature_c, 1)} °C</td>
-        <td>${formatRawVal(r.humidity_percent, 1)} %</td>
-        <td>${formatRawVal(r.irradiance_w_m2, 2)}</td>
-        <td>${formatRawVal(r.servo_angle_deg, 1)}°</td>
+        <td>${formatRawVal(r.humidity_percent,       1)} %</td>
+        <td>${formatRawVal(r.irradiance_w_m2,        2)}</td>
+        <td>${formatRawVal(r.servo_angle_deg,        1)}°</td>
       </tr>
     `).join('');
   }
@@ -298,22 +298,22 @@ const HelioSense = (function() {
       <tr>
         <td><strong>#${r.reading_id}</strong></td>
         <td>${r.recorded_at}</td>
-        <td>${formatRawVal(r.ambient_temperature_c, 1)}</td>
-        <td>${formatRawVal(r.humidity_percent, 1)}</td>
-        <td>${formatRawVal(r.panel_temperature_c, 1)}</td>
-        <td>${formatRawVal(r.bmp280_temperature_c, 1)}</td>
-        <td>${formatRawVal(r.atmospheric_pressure_hpa, 1)}</td>
-        <td>${formatRawVal(r.irradiance_w_m2, 2)}</td>
-        <td>${formatRawVal(r.movable_light_lux, 1)}</td>
-        <td>${formatRawVal(r.fixed_voltage_v, 3)}</td>
-        <td>${formatRawVal(r.fixed_current_a, 4)}</td>
-        <td style="color:var(--sky-blue);font-weight:700;">${formatRawVal(r.fixed_power_w, 3)}</td>
-        <td>${formatRawVal(r.movable_voltage_v, 3)}</td>
-        <td>${formatRawVal(r.movable_current_a, 4)}</td>
-        <td style="color:var(--solar-amber);font-weight:700;">${formatRawVal(r.movable_power_w, 3)}</td>
-        <td>${formatRawVal(r.ldr_left, null)}</td>
-        <td>${formatRawVal(r.ldr_right, null)}</td>
-        <td>${formatRawVal(r.servo_angle_deg, 1)}°</td>
+        <td>${formatRawVal(r.ambient_temperature_c,    1)}</td>
+        <td>${formatRawVal(r.humidity_percent,          1)}</td>
+        <td>${formatRawVal(r.panel_temperature_c,       1)}</td>
+        <td>${formatRawVal(r.bmp280_temperature_c,      1)}</td>
+        <td>${formatRawVal(r.atmospheric_pressure_hpa,  1)}</td>
+        <td>${formatRawVal(r.irradiance_w_m2,           2)}</td>
+        <td>${formatRawVal(r.movable_light_lux,         1)}</td>
+        <td>${formatRawVal(r.fixed_voltage_v,           4)}</td>
+        <td>${formatRawVal(r.fixed_current_a,           4)}</td>
+        <td style="color:var(--sky-blue);font-weight:700;">${formatRawVal(r.fixed_power_w, 4)}</td>
+        <td>${formatRawVal(r.movable_voltage_v,         4)}</td>
+        <td>${formatRawVal(r.movable_current_a,         4)}</td>
+        <td style="color:var(--solar-amber);font-weight:700;">${formatRawVal(r.movable_power_w, 4)}</td>
+        <td>${formatRawVal(r.ldr_left,                  null)}</td>
+        <td>${formatRawVal(r.ldr_right,                 null)}</td>
+        <td>${formatRawVal(r.servo_angle_deg,           1)}°</td>
       </tr>
     `).join('');
   }
