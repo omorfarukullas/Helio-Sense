@@ -141,16 +141,19 @@ const HelioSense = (function() {
     const headerTs = document.getElementById('header-last-reading');
     if (headerTs) headerTs.textContent = `${d.date}, ${d.time}`;
 
-    const setVal = (id, html) => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.innerHTML = html;
-        if (isNew) {
-          el.classList.remove('val-flash');
-          void el.offsetWidth; // trigger reflow
-          el.classList.add('val-flash');
-        }
+    const updateSingleEl = (el, html) => {
+      if (!el) return;
+      el.innerHTML = html;
+      if (isNew) {
+        el.classList.remove('val-flash');
+        void el.offsetWidth; // trigger reflow
+        el.classList.add('val-flash');
       }
+    };
+
+    const setVal = (id, html) => {
+      updateSingleEl(document.getElementById(id), html);
+      updateSingleEl(document.getElementById(`${id}-2`), html);
     };
 
     // System Overview
@@ -184,16 +187,19 @@ const HelioSense = (function() {
     
     // Tracking Status text & LDR cards
     const trackStatusEl = document.getElementById('track-status-text');
-    if (trackStatusEl) {
-      trackStatusEl.textContent = d.tracking_status || 'No Data';
-      if (d.tracking_status === 'Balanced') {
-        trackStatusEl.style.color = 'var(--emerald-green)';
-      } else if (d.tracking_status && d.tracking_status.includes('stronger')) {
-        trackStatusEl.style.color = 'var(--solar-amber)';
-      } else {
-        trackStatusEl.style.color = 'var(--text-muted)';
+    const trackStatusEl2 = document.getElementById('track-status-text-2');
+    [trackStatusEl, trackStatusEl2].forEach(el => {
+      if (el) {
+        el.textContent = d.tracking_status || 'No Data';
+        if (d.tracking_status === 'Balanced') {
+          el.style.color = 'var(--emerald-green)';
+        } else if (d.tracking_status && d.tracking_status.includes('stronger')) {
+          el.style.color = 'var(--solar-amber)';
+        } else {
+          el.style.color = 'var(--text-muted)';
+        }
       }
-    }
+    });
 
     const ldrLeftCard = document.getElementById('ldr-left-card');
     const ldrRightCard = document.getElementById('ldr-right-card');
@@ -201,21 +207,33 @@ const HelioSense = (function() {
       ldrLeftCard.classList.toggle('active', d.ldr_left > d.ldr_right + 60);
       ldrRightCard.classList.toggle('active', d.ldr_right > d.ldr_left + 60);
     }
+    const ldrLeftCard2 = document.getElementById('ldr-left-card-2');
+    const ldrRightCard2 = document.getElementById('ldr-right-card-2');
+    if (ldrLeftCard2 && ldrRightCard2 && d.ldr_left !== null && d.ldr_right !== null) {
+      ldrLeftCard2.classList.toggle('active', d.ldr_left > d.ldr_right + 60);
+      ldrRightCard2.classList.toggle('active', d.ldr_right > d.ldr_left + 60);
+    }
 
     // Servo Angle Gauge Needle
     const needle = document.getElementById('servo-gauge-needle');
     const angleText = document.getElementById('servo-gauge-val');
-    if (angleText) angleText.textContent = d.servo_angle_deg !== null ? `${d.servo_angle_deg}°` : 'No Data';
-    if (needle && d.servo_angle_deg !== null) {
+    const needle2 = document.getElementById('servo-gauge-needle-2');
+    const angleText2 = document.getElementById('servo-gauge-val-2');
+    const angleDisplay = d.servo_angle_deg !== null ? `${d.servo_angle_deg}°` : 'No Data';
+    if (angleText) angleText.textContent = angleDisplay;
+    if (angleText2) angleText2.textContent = angleDisplay;
+    if (d.servo_angle_deg !== null) {
       // 0 deg = -90 deg rotation, 180 deg = 90 deg rotation
       const rotationDeg = -90 + Math.max(0, Math.min(180, d.servo_angle_deg));
-      needle.style.transform = `rotate(${rotationDeg}deg)`;
+      if (needle) needle.style.transform = `rotate(${rotationDeg}deg)`;
+      if (needle2) needle2.style.transform = `rotate(${rotationDeg}deg)`;
     }
 
     // Power Comparison & Advantage
     setVal('comp-fixed-power',   formatVal(d.fixed_power_w,   4, 'W'));
     setVal('comp-movable-power', formatVal(d.movable_power_w, 4, 'W'));
     setVal('comp-power-diff',    formatVal(d.power_diff_w,    4, 'W'));
+    setVal('stat-power-gain',    d.movable_advantage_percent !== null ? `${d.movable_advantage_percent >= 0 ? '+' : ''}${d.movable_advantage_percent}%` : '--');
 
     const advPill = document.getElementById('comp-advantage-pill');
     if (advPill) {
